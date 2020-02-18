@@ -1,14 +1,6 @@
-FROM ubuntu:latest
-MAINTAINER Rick Torzynski "ricktorzynski@gmail.com"
+FROM ricktorzynski/ocr-tesseract-docker:latest
 RUN apt-get update -y && apt install -y software-properties-common && add-apt-repository ppa:alex-p/tesseract-ocr-devel -y
 RUN apt-get install -y python-pip python-dev build-essential
 RUN apt update && apt install -y libsm6 libxext6
-RUN apt-get -y install tesseract-ocr
-COPY . /app
-WORKDIR /app
-RUN pip install pillow
-RUN pip install pytesseract
-RUN pip install opencv-contrib-python
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+RUN apt-get -y install tesseract-ocr tesseract-ocr-eng tesseract-ocr-deu
+COPY ./app.py /app/app.py
